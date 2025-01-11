@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express")
 const app = require("./app/config.js");
 const hbs = require("express-handlebars");
@@ -7,6 +8,9 @@ const IpGeolotation = require("./infra/ip.js");
 const User = require("./models/Users.js");
 const Date = require("./infra/Date.js");
 const formatUser = require("./user/formatUser.js");
+// const nodemailer = require("nodemailer");
+// const sendEmail = require("./email/sendEmail.js");
+// const { transporter } = require("./infra/email.js");
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
