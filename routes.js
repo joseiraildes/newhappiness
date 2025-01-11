@@ -104,3 +104,23 @@ app.post('/cadastro', async(req, res)=>{
   }
   
 })
+app.get('/login', async(req, res)=>{
+  const ip = await IpGeolotation()
+  const user = await User.findOne({
+    where: {
+      ip: ip.ip
+    }
+  })
+  
+  if(user === null){
+    const buttons = `
+    <button type='button' class='btn btn-sm bt-outline-dark' onclick="location.href='/login'">Entrar</button>
+    <button type='button' class='btn btn-sm btn-dark' onclick="location.href='/cadastro'">Cadastrar</button>
+    `
+    res.render("login", {
+      buttons
+    })
+  }else{
+    res.redirect('/')
+  }
+})
