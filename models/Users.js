@@ -36,7 +36,7 @@ const User = sequelize.define("users", {
     allowNull: false
   },
   data: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: false
   }
 })
