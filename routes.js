@@ -8,6 +8,7 @@ const IpGeolotation = require("./infra/ip.js");
 const User = require("./models/Users.js");
 const Date = require("./infra/Date.js");
 const formatUser = require("./user/formatUser.js");
+const sequelize = require("./config/databse.js");
 // const nodemailer = require("nodemailer");
 // const sendEmail = require("./email/sendEmail.js");
 // const { transporter } = require("./infra/email.js");
@@ -21,6 +22,18 @@ app.engine("hbs", hbs.engine({
 }))
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname + "/views"))
+
+
+(async()=>{
+  try {
+    await sequelize.authenticate()
+    console.log("Conexão com o banco de dados estabelecida com sucesso!")
+
+    await sequelize.sync({ alter: true })
+  } catch(error) {
+    console.error("Erro ao conectar com o banco de dados:", error)
+  }
+})()
 
 app.get("/", async(req, res)=>{
   const ip = await IpGeolotation()
